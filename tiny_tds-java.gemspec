@@ -13,7 +13,7 @@ Gem::Specification.new do |spec|
   spec.description   = %q{This is a shim for the tiny_tds adapter when used with jruby. It's only purpose is to satisfy activerrecord-sqlserver-adapter's dependency on the tiny_tds gem.}
   spec.homepage      = "TODO: Put your gem's website or public repo URL here."
 
-  spec.platform      = Gem::Platform.local
+  spec.platform      = "java"
 
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'
   # to allow pushing to a single host or delete this section to allow pushing to any host.
