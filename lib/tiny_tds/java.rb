@@ -11,7 +11,7 @@ module TinyTds
     @data_mutex = Mutex.new
 
     # Unless in single threaded mode, protects access to any mutable
-    # global data structure in Sequel.
+    # global data structure.
     # Uses a non-reentrant mutex, so calling code should be careful.
     def self.synchronize(&block)
       @data_mutex.synchronize(&block)
@@ -131,7 +131,7 @@ module TinyTds
 
       attr_reader :conn
 
-      # Connects to a database.  See Sequel.connect.
+      # Connects to a database.
       def self.connect(conn_string, opts = OPTS)
         opts = {:uri=>conn_string}.merge!(opts)
         # process opts a bit
@@ -294,7 +294,7 @@ module TinyTds
 
       # The uri for this connection.  You can specify the uri
       # using the :uri, :url, or :database options.  You don't
-      # need to worry about this if you use Sequel.connect
+      # need to worry about this if you use connect
       # with the JDBC connectrion strings.
       def uri(opts=OPTS)
         opts = @opts.merge(opts)
@@ -367,8 +367,8 @@ module TinyTds
         case arg
         when Integer
           cps.setLong(i, arg)
-        when Sequel::SQL::Blob
-          cps.setBytes(i, arg.to_java_bytes)
+        #when Sequel::SQL::Blob
+        #  cps.setBytes(i, arg.to_java_bytes)
         when String
           cps.setString(i, arg)
         when Float
@@ -413,9 +413,6 @@ module TinyTds
 
       OPTS = {}.freeze
 
-      # Unless in single threaded mode, protects access to any mutable
-      # global data structure in Sequel.
-      # Uses a non-reentrant mutex, so calling code should be careful.
       def synchronize(&block)
         @cache_mutex.synchronize(&block)
       end
