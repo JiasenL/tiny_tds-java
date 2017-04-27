@@ -652,7 +652,7 @@ module TinyTds
       def RubyTimestamp(r, i, opts=OPTS)
         if v = r.getTimestamp(i)
           timezone = opts[:database_timezone] == :local ? :local : :utc
-          Time.send(timezone, v.getYear + 1900, v.getMonth + 1, v.getDate, v.getHours, v.getMinutes, v.getSeconds, v.getNanos)
+          Time.send(timezone, v.getYear + 1900, v.getMonth + 1, v.getDate, v.getHours, v.getMinutes, v.getSeconds, v.getNanos / 1000.0)
         end
       end
       def RubyDateTimeOffset(r, i, opts=OPTS)
