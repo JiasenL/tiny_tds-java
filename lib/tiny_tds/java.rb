@@ -3,6 +3,8 @@ require "tiny_tds/sqljdbc4-4.0.jar"
 
 module TinyTds
   module Java
+    class DatabaseError < StandardError; end
+
     OPTS = {}.freeze
 
     # Mutex used to protect mutable data structures
@@ -652,7 +654,7 @@ module TinyTds
       end
       def RubyTimestamp(r, i, opts=OPTS)
         if v = r.getTimestamp(i)
-          timezone = opts[:database_timezone] == :local ? '' : 'UTC'
+          timezone = opts[:database_timezone] == :local ? :local : :utc
           Time.send(timezone, v.getYear + 1900, v.getMonth + 1, v.getDate, v.getHours, v.getMinutes, v.getSeconds, v.getNanos)
         end
       end
@@ -678,7 +680,6 @@ module TinyTds
       end
 
       INSTANCE = new
-      INSTANCE.database_timezone = :utc
       o = INSTANCE
       MAP = Hash.new(o.method(:Object))
       types = Java::JavaSQL::Types
