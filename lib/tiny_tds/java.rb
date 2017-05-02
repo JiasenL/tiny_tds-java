@@ -641,7 +641,8 @@ module TinyTds
       end
       def RubyTime(r, i, opts=OPTS)
         if v = r.getString(i)
-          Time.parse(v+(opts[:database_timezone] == :utc ? 'UTC' : ''))
+          timezone = opts[:database_timezone] == :utc ? 'UTC' : ''
+          Time.parse("2000-01-01 #{v}#{timezone}")
         end
       end
       def RubyDate(r, i, opts=OPTS)
@@ -656,8 +657,9 @@ module TinyTds
         end
       end
       def RubyDateTimeOffset(r, i, opts=OPTS)
-        if v = r.getDateTimeOffset(i)
-          Time.parse(v.to_s)
+        if v = r.getString(i)
+          timezone = opts[:database_timezone] == :local ? :local : :utc
+          Time.parse(v.to_s).send(timezone)
         end
       end
       def RubyBigDecimal(r, i, opts=OPTS)
