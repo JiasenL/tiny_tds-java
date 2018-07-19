@@ -11,7 +11,7 @@ Gem::Specification.new do |spec|
 
   spec.summary       = %q{This is a shim for the tiny_tds adapter when used with jruby.}
   spec.description   = %q{This is a shim for the tiny_tds adapter when used with jruby. It's only purpose is to satisfy activerrecord-sqlserver-adapter's dependency on the tiny_tds gem.}
-  spec.homepage      = "TODO: Put your gem's website or public repo URL here."
+  spec.homepage      = "https://github.com/JiasenL/tiny_tds-java"
 
   spec.platform      = "java"
 
